@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+stats.json
+coverage
+/dist
+/prod
+/build
+*.log
+*.tar.gz
+npm-debug
+.idea

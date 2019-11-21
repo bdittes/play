@@ -1,0 +1,16 @@
+{
+  "name": "play",
+  "version": "1.0.0",
+  "main": "play.ts",
+  "repository": "https://github.com/bdittes/play.git",
+  "author": "Benjamin Dittes <bdittes@google.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "node ./node_modules/.bin/jest",
+    "play": "./node_modules/.bin/ts-node ./play.ts"
+  },
+  "dependencies": {
+    "typescript": "^3.4.3",
+    "ts-node": "^8.5.2"
+  }
+}
