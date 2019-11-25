@@ -6,8 +6,9 @@
   "author": "Benjamin Dittes <bdittes@google.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node ./node_modules/.bin/jest",
-    "play": "./node_modules/.bin/ts-node ./play.ts"
+    "jest": "node ./node_modules/.bin/jest",
+    "js": "./node_modules/.bin/ts-node ./js/play.ts",
+    "cpp": "bazel run cpp:main"
   },
   "dependencies": {
     "typescript": "^3.4.3",

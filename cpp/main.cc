@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "httplib.h"
 
 int main() {
@@ -16,5 +18,6 @@ int main() {
 
   svr.Get("/stop", [&](const Request &req, Response &res) { svr.stop(); });
 
+  std::cout << "Started." << std::endl;
   svr.listen("localhost", 1234);
 }
