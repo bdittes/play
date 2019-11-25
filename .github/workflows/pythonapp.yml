@@ -1,0 +1,23 @@
+# @format
+
+name: Python application
+
+on: [push]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+          architecture: x64
+      - name: Install dependencies
+        run: |
+          ./py install
+      - name: Lint & Test
+        run: |
+          ./py test

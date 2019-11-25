@@ -10,3 +10,6 @@ coverage
 npm-debug
 .idea
 bazel-*
+venv
+.mypy_cache
+__pycache__
