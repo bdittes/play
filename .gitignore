@@ -9,3 +9,4 @@ coverage
 *.tar.gz
 npm-debug
 .idea
+bazel-*
