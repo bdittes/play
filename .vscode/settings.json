@@ -1,0 +1,3 @@
+{
+    "bazel.buildifierPath": "~/gocode/bin/buildifier"
+}
