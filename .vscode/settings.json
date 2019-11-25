@@ -1,3 +1,4 @@
 {
-    "bazel.buildifierPath": "~/gocode/bin/buildifier"
+  "bazel.buildifierPath": "~/gocode/bin/buildifier",
+  "editor.formatOnSave": true
 }

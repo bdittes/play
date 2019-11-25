@@ -1,0 +1,7 @@
+GET http://localhost:1234/hi
+
+###
+GET http://localhost:1234/numbers/1234
+
+####
+GET http://localhost:1234/stop
