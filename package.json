@@ -8,7 +8,9 @@
   "scripts": {
     "jest": "node ./node_modules/.bin/jest",
     "js": "./node_modules/.bin/ts-node ./js/play.ts",
-    "cpp": "bazel run cpp:main"
+    "cpp": "bazel run cpp:main",
+    "py-server": "./py server",
+    "py-test": "./py test"
   },
   "dependencies": {
     "typescript": "^3.4.3",
