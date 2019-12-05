@@ -4,6 +4,7 @@
 Flask==1.1.1
 python-dotenv
 absl-py
+elasticsearch-dsl
 
 # Dev:
 pip
