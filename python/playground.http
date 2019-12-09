@@ -49,41 +49,41 @@ content-type: application/json
         },
         {
           "term": {
-            "language": "en"
-          }
-        },
-        {"bool": { "must": [
-        {
-          "terms": {
-            "metadata.themes.value.raw": [
-              "mxxa4cvx4v"
-            ]
+            "language": "es"
           }
         },
         {
           "bool": {
-            "should": [{
-              "term": {
-                "metadata.themes.is_suggested": false
+            "should": [
+              {
+                "nested": {
+                  "path": "metadata.themes",
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "term": {
+                            "metadata.themes.value.raw": "jv3j3veplsp"
+                          }
+                        },
+                        {
+                          "term": {
+                            "metadata.themes.is_suggested": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
               }
-            },
-            {"bool": {
-            "must_not": [{
-              "exists": {"field": "metadata.themes.is_suggested"}
-            }]}}
             ]
           }
-        }]}}
+        }
       ]
     }
   },
   "sort": [
-    {
-      "creationDate.sort": {
-        "order": "desc",
-        "unmapped_type": "boolean"
-      }
-    }
+    "_score"
   ],
   "aggregations": {
     "all": {
@@ -118,9 +118,29 @@ content-type: application/json
                       }
                     },
                     {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
+                      "bool": {
+                        "should": [
+                          {
+                            "nested": {
+                              "path": "metadata.themes",
+                              "query": {
+                                "bool": {
+                                  "must": [
+                                    {
+                                      "term": {
+                                        "metadata.themes.value.raw": "jv3j3veplsp"
+                                      }
+                                    },
+                                    {
+                                      "term": {
+                                        "metadata.themes.is_suggested": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
                         ]
                       }
                     }
@@ -131,315 +151,477 @@ content-type: application/json
           }
         },
         "legal_status.value": {
-          "terms": {
-            "field": "metadata.legal_status.value.raw",
-            "missing": "missing",
-            "size": 9999
+          "nested": {
+            "path": "metadata.legal_status"
+          },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "nested": {
+                                  "path": "metadata.themes",
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "term": {
+                                            "metadata.themes.value.raw": "jv3j3veplsp"
+                                          }
+                                        },
+                                        {
+                                          "term": {
+                                            "metadata.themes.is_suggested": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+        
+          
+        },
+        "body": {
+          "nested": {
+            "path": "metadata.body"
           },
           "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
-                        ]
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
+            "value": {
+              "terms": {
+                "field": "metadata.body.value.raw",
+                "missing": "missing",
+                "size": 9999
+              },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "nested": {
+                                  "path": "metadata.themes",
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "term": {
+                                            "metadata.themes.value.raw": "jv3j3veplsp"
+                                          }
+                                        },
+                                        {
+                                          "term": {
+                                            "metadata.themes.is_suggested": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }
           }
         },
-        "body.value": {
-          "terms": {
-            "field": "metadata.body.value.raw",
-            "missing": "missing",
-            "size": 9999
+        "document_type": {
+          "nested": {
+            "path": "metadata.document_type"
           },
           "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
-                        ]
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
+            "value": {
+              "terms": {
+                "field": "metadata.document_type.value.raw",
+                "missing": "missing",
+                "size": 9999
+              },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "nested": {
+                                  "path": "metadata.themes",
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "term": {
+                                            "metadata.themes.value.raw": "jv3j3veplsp"
+                                          }
+                                        },
+                                        {
+                                          "term": {
+                                            "metadata.themes.is_suggested": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }
           }
         },
-        "document_type.value": {
-          "terms": {
-            "field": "metadata.document_type.value.raw",
-            "missing": "missing",
-            "size": 9999
+        "means_of_adoption": {
+          "nested": {
+            "path": "metadata.means_of_adoption"
           },
           "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
-                        ]
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
+            "value": {
+              "terms": {
+                "field": "metadata.means_of_adoption.value.raw",
+                "missing": "missing",
+                "size": 9999
+              },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "nested": {
+                                  "path": "metadata.themes",
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "term": {
+                                            "metadata.themes.value.raw": "jv3j3veplsp"
+                                          }
+                                        },
+                                        {
+                                          "term": {
+                                            "metadata.themes.is_suggested": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }
           }
         },
-        "means_of_adoption.value": {
-          "terms": {
-            "field": "metadata.means_of_adoption.value.raw",
-            "missing": "missing",
-            "size": 9999
+        "paragraph_type": {
+          "nested": {
+            "path": "metadata.paragraph_type"
           },
           "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
-                        ]
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
+            "value": {
+              "terms": {
+                "field": "metadata.paragraph_type.value.raw",
+                "missing": "missing",
+                "size": 9999
+              },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "nested": {
+                                  "path": "metadata.themes",
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "term": {
+                                            "metadata.themes.value.raw": "jv3j3veplsp"
+                                          }
+                                        },
+                                        {
+                                          "term": {
+                                            "metadata.themes.is_suggested": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }
           }
         },
-        "paragraph_type.value": {
-          "terms": {
-            "field": "metadata.paragraph_type.value.raw",
-            "missing": "missing",
-            "size": 9999
+        "themes": {
+          "nested": {
+            "path": "metadata.themes"
           },
           "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
-                        ]
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
+            "value": {
+              "terms": {
+                "field": "metadata.themes.value.raw",
+                "missing": "missing",
+                "size": 9999
+              },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }
           }
         },
-        "themes.value": {
-          "terms": {
-            "field": "metadata.themes.value.raw",
-            "missing": "missing",
-            "size": 9999
+        "affected_persons": {
+          "nested": {
+            "path": "metadata.affected_persons"
           },
           "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
+            "value": {
+              "terms": {
+                "field": "metadata.affected_persons.value.raw",
+                "missing": "missing",
+                "size": 9999
+              },
+              "aggregations": {
+                "filtered": {
+                  "filter": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "published": true
+                          }
+                        },
+                        {
+                          "terms": {
+                            "template": [
+                              "5d305622ad878e81d220b324"
+                            ]
+                          }
+                        },
+                        {
+                          "term": {
+                            "language": "es"
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "nested": {
+                                  "path": "metadata.themes",
+                                  "query": {
+                                    "bool": {
+                                      "must": [
+                                        {
+                                          "term": {
+                                            "metadata.themes.value.raw": "jv3j3veplsp"
+                                          }
+                                        },
+                                        {
+                                          "term": {
+                                            "metadata.themes.is_suggested": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": []
+                          }
+                        }
+                      ]
                     }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "affected_persons.value": {
-          "terms": {
-            "field": "metadata.affected_persons.value.raw",
-            "missing": "missing",
-            "size": 9999
-          },
-          "aggregations": {
-            "filtered": {
-              "filter": {
-                "bool": {
-                  "filter": [
-                    {
-                      "term": {
-                        "published": true
-                      }
-                    },
-                    {
-                      "terms": {
-                        "template": [
-                          "5d305622ad878e81d220b324"
-                        ]
-                      }
-                    },
-                    {
-                      "term": {
-                        "language": "es"
-                      }
-                    },
-                    {
-                      "terms": {
-                        "metadata.themes.value.raw": [
-                          "km72d10gpd"
-                        ]
-                      }
-                    },
-                    {
-                      "bool": {
-                        "should": []
-                      }
-                    }
-                  ]
+                  }
                 }
               }
             }
