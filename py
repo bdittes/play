@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# For PyMesh
+# conda create -n py310 python=3.10
+conda activate py310
+
 P3=
-if [[ -f $(which python3.7) ]]; then
-    P3=3.7
+if [[ -f $(which python3) ]]; then
+    P3=3
 else
-    echo "WARNING: Could not find python 3.7 in path. You probable want to 'sudo apt install python3.7-venv'."
+    echo "WARNING: Could not find python 3 in path. You probable want to 'sudo apt install python3.7-venv'."
 fi
 
 CMD=$1
@@ -16,6 +20,11 @@ if [ $CMD = "install" ]; then
     pip install --upgrade pip || echo "Please first sudo apt install python${P3}-pip"
     pip install --upgrade setuptools
     pip install --upgrade -r requirements.txt
+    # To install PyMesh: https://pymesh.readthedocs.io/en/latest/installation.html
+    # ./py install
+    # ./py pip install -r ../PyMesh/python/requirements.txt
+    # cd ../PyMesh
+    # python ./setup.py install
     exit 0
 fi
 
