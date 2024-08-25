@@ -1,38 +1,36 @@
 #!/bin/bash
 
 # For PyMesh
-# conda create -n py310 python=3.10
-conda activate py310
+# sudo apt-get install libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev
+# export CMAKE_BUILD_TYPE=Release
+# 
 
-P3=
-if [[ -f $(which python3) ]]; then
-    P3=3
-else
-    echo "WARNING: Could not find python 3 in path. You probable want to 'sudo apt install python3.7-venv'."
-fi
+. ~/miniconda3/etc/profile.d/conda.sh
 
 CMD=$1
 shift
 
 if [ $CMD = "install" ]; then
-    python${P3} -m venv venv
-    . ./venv/bin/activate
-    pip install --upgrade pip || echo "Please first sudo apt install python${P3}-pip"
-    pip install --upgrade setuptools
+    #python${P3} -m venv venv
+    #. ./venv/bin/activate
+    conda create --prefix conda
+    conda install python=3.10 numpy=1.24 python-dotenv absl-py elasticsearch-dsl pip setuptools yapf ipython pytest libffi=3.3 conda-forge::libcblas
+    conda activate ./conda
+    #pip install --upgrade pip || echo "Please first sudo apt install python${P3}-pip"
+    #pip install --upgrade setuptools
     pip install --upgrade -r requirements.txt
     # To install PyMesh: https://pymesh.readthedocs.io/en/latest/installation.html
-    # ./py install
-    # ./py pip install -r ../PyMesh/python/requirements.txt
-    # cd ../PyMesh
-    # python ./setup.py install
+    # . py && cd ../PyMesh && ./setup.py install && cd -
+    # For pymeshlab:
+    # sudo install --yes libgl1-mesa-dev
     exit 0
 fi
 
-if [ ! -f "venv/bin/activate" ]; then
+if [ ! -f "conda/bin/python" ]; then
     ./py install
 fi
 
-. ./venv/bin/activate || exit -1
+conda activate ./conda || exit -1
 
 if [ $CMD = "server" ]; then
     flask run --host=0.0.0.0 --port=5000 "$@"
@@ -46,6 +44,8 @@ elif [ $CMD = "format" ]; then
     yapf -i python/*.py python/tests/*.py "$@"
 elif [ $CMD = "test" ]; then
     ./py lint && python -m pytest -v -q python/ "$@"
+elif [ $CMD = "alti" ]; then
+    python python/alti.py $@
 else
     "$CMD" "$@"
 fi

@@ -4,14 +4,19 @@
     "files.associations": {
         "iostream": "cpp"
     },
-    "python.defaultInterpreterPath": "venv/bin/python",
-    "python.linting.pycodestyleEnabled": true,
-    "python.linting.enabled": true,
+    "python.defaultInterpreterPath": "conda/bin/python",
+    "pylint.interpreter": [
+        "conda/bin/python"
+    ],
+    "yapf.path": [
+        "conda/bin/yapf"
+    ],
+    "yapf.interpreter": [
+        "conda/bin/python"
+    ],
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": true,
-    "cornflakes.linter.executablePath": "venv/bin/flake8",
+    "cornflakes.linter.executablePath": "conda/bin/flake8",
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit"
     },
@@ -20,10 +25,6 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "eeyore.yapf",
         "editor.formatOnType": false
-    },
-    "mypy-type-checker.severity": {
-        "error": "Warning",
-        "note": "Information"
     },
     "git.autofetch": true,
     "workbench.editor.enablePreview": false,
@@ -35,21 +36,38 @@
     "explorer.confirmDragAndDrop": false,
     "files.autoSave": "off",
     "git.confirmSync": false,
-    "git-graph.dialog.merge.noFastForward": false,
     "files.exclude": {
         "**/__pycache__": true,
         "**/node_modules": true,
-        "**/venv": true
+        "**/venv": true,
+        "**/conda": true
     },
     "files.watcherExclude": {
         "**/__pycache__/**": true,
-        "**/venv/**": true
+        "**/venv/**": true,
+        "**/conda/**": true,
     },
     "search.exclude": {
         "**/__pycache__": true,
-        "**/venv": true
+        "**/venv": true,
+        "**/conda": true,
     },
     "workbench.colorTheme": "Default Dark+",
     "files.eol": "\n",
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "sklearn",
+            "depth": 2
+        },
+        {
+            "name": "matplotlib",
+            "depth": 2
+        },
+        {
+            "name": "pymesh",
+            "depth": 2,
+            "includeAllSymbols": true
+        },
+    ]
 }
